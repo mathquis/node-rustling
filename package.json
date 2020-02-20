@@ -4,6 +4,7 @@
   "description": "Snips Rustling library binding for Node.js",
   "main": "lib/index.js",
   "scripts": {
+    "install": "npm run build",
     "build": "neon build --release",
     "test": "neon build --release && node test.js"
   },

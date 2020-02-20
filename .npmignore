@@ -1,0 +1,6 @@
+native/target
+native/*.node
+native/artifacts.json
+.gitignore
+README.md
+test.js

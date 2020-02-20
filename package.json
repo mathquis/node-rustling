@@ -1,0 +1,32 @@
+{
+  "name": "@mathquis/node-rustling",
+  "version": "1.0.0",
+  "description": "Snips Rustling library binding for Node.js",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "neon build --release",
+    "test": "neon build --release && node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathquis/node-rustling.git"
+  },
+  "keywords": [
+    "rustling",
+    "duckling",
+    "parse",
+    "node",
+    "online"
+  ],
+  "author": "Mathieu \"Fastjack\" Quisefit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mathquis/node-rustling/issues"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "node-addon-api": "^2.0.0",
+    "neon-cli": "^0.3.3"
+  },
+  "homepage": "https://github.com/mathquis/node-rustling#readme"
+}

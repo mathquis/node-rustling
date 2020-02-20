@@ -1,0 +1,23 @@
+[package]
+name = "rustling-js"
+version = "0.0.1"
+authors = ["Mathieu Quisefit"]
+license = "MIT"
+build = "build.rs"
+
+[profile.release]
+codegen-units = 1
+
+[lib]
+name = "rustling_js"
+crate-type = ["dylib"]
+
+[build-dependencies]
+neon-build = "0.3.3"
+
+[dependencies]
+neon = "0.3.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0.45"
+neon-serde = "0.3.0"
+rustling-ontology = { git = "https://github.com/snipsco/rustling-ontology", branch = "master" }

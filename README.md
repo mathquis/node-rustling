@@ -1,5 +1,7 @@
 # node-rustling
 
+[![npm version](https://badge.fury.io/js/%40mathquis%2Fnode-rustling.svg)](https://badge.fury.io/js/%40mathquis%2Fnode-rustling)
+
 Node.js bindings for Snips rustling-ontology parser.
 
 ## Supported Output

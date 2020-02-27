@@ -25,6 +25,12 @@ Node.js bindings for Snips rustling-ontology parser.
 curl https://sh.rustup.rs -sSf | sh
 ```
 
+### Installation
+
+```bash
+npm i @mathquis/node-rustling
+```
+
 ### Usage
 
 ```javascript

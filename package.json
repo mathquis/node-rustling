@@ -3,15 +3,31 @@
   "version": "1.0.1",
   "description": "Snips Rustling library binding for Node.js",
   "main": "lib/index.js",
+  "gypfile": true,
+  "binary": {
+    "module_name": "index",
+    "module_path": "./native/",
+    "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",
+    "host": "https://github.com/mathquis/node-rustling/releases/download/",
+    "remote_path": "{version}",
+    "pkg_path": "."
+  },
   "scripts": {
-    "install": "npm run build",
-    "build": "neon build --release",
-    "test": "neon build --release && node test.js"
+    "preinstall": "npm install node-pre-gyp@amilajack/node-pre-gyp#neon-compat",
+    "install": "node-pre-gyp install --fallback-to-build=false || neon build --release",
+    "build": "neon build --release && npm test",
+    "rebuild": "neon build --release && npm test",
+    "test": "node test.js",
+    "publish": "neon build --release && node-pre-gyp package && node-pre-gyp-github publish --release"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mathquis/node-rustling.git"
   },
+  "files": [
+    "native/index.node",
+    "lib"
+  ],
   "keywords": [
     "rustling",
     "duckling",
@@ -24,7 +40,10 @@
   "bugs": {
     "url": "https://github.com/mathquis/node-rustling/issues"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "node-pre-gyp@amilajack/node-pre-gyp#neon-compat": "^0.14.0",
+    "node-pre-gyp-github": "^1.4.3"
+  },
   "dependencies": {
     "node-addon-api": "^2.0.0",
     "neon-cli": "^0.3.3"

@@ -15,8 +15,7 @@ before_install:
 - curl https://sh.rustup.rs -sSf | sh -s -- -y
 - export PATH="./node_modules/.bin/:$HOME/.cargo/bin:$PATH"
 - source "$HOME/.cargo/env"
-- npm install neon-cli -g
-- npm install node-pre-gyp@amilajack/node-pre-gyp#neon-compat node-pre-gyp-github
+- npm install neon-cli node-pre-gyp@amilajack/node-pre-gyp#neon-compat node-pre-gyp-github -g
 - PUBLISH_BINARY=true
 - if [[ "$TRAVIS_TAG" == "" ]]; then PUBLISH_BINARY=false; fi;
 - echo "Publish binary = $PUBLISH_BINARY"

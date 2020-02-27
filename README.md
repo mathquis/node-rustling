@@ -1,6 +1,6 @@
 # node-rustling
 
-[![npm version](https://badge.fury.io/js/%40mathquis%2Fnode-rustling.svg)](https://badge.fury.io/js/%40mathquis%2Fnode-rustling)
+[![Build Status](https://travis-ci.org/mathquis/node-rustling.svg?branch=master)](https://travis-ci.org/mathquis/node-rustling) [![npm version](https://badge.fury.io/js/%40mathquis%2Fnode-rustling.svg)](https://badge.fury.io/js/%40mathquis%2Fnode-rustling)
 
 Node.js bindings for Snips rustling-ontology parser.
 

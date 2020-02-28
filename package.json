@@ -41,12 +41,13 @@
     "url": "https://github.com/mathquis/node-rustling/issues"
   },
   "devDependencies": {
-    "node-pre-gyp@amilajack/node-pre-gyp#neon-compat": "^0.14.0",
-    "node-pre-gyp-github": "^1.4.3"
+    "node-pre-gyp-github": "^1.4.3",
+    "node-pre-gyp": "github:amilajack/node-pre-gyp#neon-compat"
   },
   "dependencies": {
+    "neon-cli": "^0.3.3",
     "node-addon-api": "^2.0.0",
-    "neon-cli": "^0.3.3"
+    "node-pre-gyp": "github:amilajack/node-pre-gyp#neon-compat"
   },
   "homepage": "https://github.com/mathquis/node-rustling#readme"
 }

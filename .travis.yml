@@ -21,6 +21,8 @@ before_install:
 - PUBLISH_BINARY=true
 - if [[ "$TRAVIS_TAG" == "" ]]; then PUBLISH_BINARY=false; fi;
 - echo "Publish binary = $PUBLISH_BINARY"
+- /home/travis/build/mathquis/node-rustling/node_modules/node-pre-gyp/bin/node-pre-gyp --help
+- node-pre-gyp --help
 install:
 - neon build --release
 before_script:

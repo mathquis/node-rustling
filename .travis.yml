@@ -13,11 +13,10 @@ compiler: gcc
 before_install:
 - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get update -qq; fi;
 - curl https://sh.rustup.rs -sSf | sh -s -- -y
-- export PATH="./node_modules/.bin/:$HOME/.cargo/bin:$PATH"
+- export PATH="$HOME/node_modules/.bin/:$HOME/node_modules/node-pre-gyp/bin/:$HOME/.cargo/bin:$PATH"
 - source "$HOME/.cargo/env"
 - npm install neon-cli -g
-- npm install node-pre-gyp node-pre-gyp-github
-- npm install node-pre-gyp@amilajack/node-pre-gyp#neon-compat
+- npm install node-pre-gyp@amilajack/node-pre-gyp#neon-compat node-pre-gyp-github
 - sudo find / -name node-pre-gyp
 - PUBLISH_BINARY=true
 - if [[ "$TRAVIS_TAG" == "" ]]; then PUBLISH_BINARY=false; fi;

@@ -15,6 +15,7 @@ before_install:
 - curl https://sh.rustup.rs -sSf | sh -s -- -y
 - export PATH="$HOME/node_modules/.bin/:$HOME/node_modules/node-pre-gyp/bin/:./node_modules/node-pre-gyp/bin:$HOME/.cargo/bin:$PATH"
 - if [ $TRAVIS_OS_NAME = linux ]; then source "$HOME/.cargo/env"; fi;
+- rustup toolchain install stable
 - npm install neon-cli -g
 - npm install node-pre-gyp@amilajack/node-pre-gyp#neon-compat node-pre-gyp-github
 - PUBLISH_BINARY=true

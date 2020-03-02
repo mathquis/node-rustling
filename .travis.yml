@@ -16,6 +16,7 @@ before_install:
 - export PATH="$HOME/node_modules/.bin/:$HOME/node_modules/node-pre-gyp/bin/:./node_modules/node-pre-gyp/bin:$HOME/.cargo/bin:$PATH"
 - if [ $TRAVIS_OS_NAME = linux ]; then source "$HOME/.cargo/env"; fi;
 - if [ $TRAVIS_OS_NAME = windows ]; then rustup toolchain install stable-x86_64-pc-windows-msvc; fi;
+- if [ $TRAVIS_OS_NAME = windows ]; then rustup default stable-x86_64-pc-windows-msvc; fi;
 - npm install neon-cli -g
 - npm install node-pre-gyp@amilajack/node-pre-gyp#neon-compat node-pre-gyp-github
 - PUBLISH_BINARY=true

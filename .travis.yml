@@ -23,7 +23,7 @@ before_install:
 - if [[ "$TRAVIS_TAG" == "" ]]; then PUBLISH_BINARY=false; fi;
 - echo "Publish binary = $PUBLISH_BINARY"
 install:
-- neon build --release
+- travis_wait neon build --release
 before_script:
 - if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp package; fi;
 - if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp-github publish --release; fi;

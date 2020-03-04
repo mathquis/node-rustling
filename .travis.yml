@@ -27,7 +27,6 @@ install:
 before_script:
 - if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp package; fi;
 - if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp-github publish --release; fi;
-- node-pre-gyp clean
 after_success:
 - node-pre-gyp-github info
 deploy:

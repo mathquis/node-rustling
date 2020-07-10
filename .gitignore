@@ -2,3 +2,4 @@
 /node_modules
 /native/artifacts.json
 /native/*.node
+/build

@@ -1,14 +1,13 @@
 language: node_js
 node_js:
-- 13
-jobs:
-  include:
-  - os: linux
-    arch: amd64
-  - os: linux
-    arch: arm64
-  - os: windows
-    arch: amd64
+  - 13
+  - 14
+os:
+  - linux
+  - windows
+arch:
+  - amd64
+  - arm64
 compiler: gcc
 before_install:
 - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get update -qq; fi;
@@ -37,6 +36,3 @@ deploy:
   email: fastjack79@yahoo.com
   api_key:
     secure: hMghHshpU5Ax/99ynonYPF9E9RWAbPUGJJihTVCMXr4WsvRzKh2aH6lfiPcT+90OBGZ44ICudBkYe7rk2qMbg3GdcfKgmSlQB78qQWiXw4MwN1LYopoUkECGnULr8GNYWB+Lfnj9hZ2StpcKG0yGp+FV/99OnmRUa4HKNEs2jBDhyB732IfMV1GFyYhOD5+Ty6yW0HogEO9y8rwPuWmj6OtrMfryTklI77j9QSFXKBwmyUsBohQxCbRiN7vpYgM/JXA/X50I+fQrzxxLaBZ5iNENOQp90NgOMA525c/w45uiI+1yXeYRBBZkNL/MU2D8B9HXJfk5/6WCER/T0WHdoayrW9QJw9mDhSi8d00Q8X0KDS2IrisaUK066eYtlvslsRKtxisCtk21okW6NekcqEzgwRt18N7CG+FNq49nVzfFCU2npi9jszxxePskHC+VMLat4NYJ7sKJiyxkkRvNyrDU0jknw36AxyQu2cZb5WRkAnQUBVJUx8IZO9FnjjV2veblUWIlKsud1Ice+3ev1yWiurgcKCZ0j6ukOWMOTA62Ys6UtaXKZTYjanS0FkqW3qBN4uMVIDlweQrL0yKKSDxtneOtJO1dqvO17zAbEErwkr5W2u98qfW+S9gxgmoaPSIlLeuR4tkmCXglpF9V/TlE8CuhHMLbmNJLFrE3KqQ=
-env:
-  global:
-  - secure: JFvCvGfaiUqa1VExGj0yjczwGkYL4QZhFdzjOG1FI0bBGi2UsrZ9N7jebBDL/IfIAHtJF3Sz3zPaRuZ4nXkmzwlJBUnZy6KLtEOx1DzIYI1GOEU5oG6fMD731xxYPHwtTipuPvw/7akjLjRuSiBT9TAwXwtxFnyiGfzWcdrXhbGziM2JQlbAxv631LmgbE61c7UGsGBVWoHnJkcD8TMkDdnAVRGtYQ8VSWzku0rBGd9FSQ5M0LLabQ6bMn9JtBB0usQHoZe39xBO4MT4ojCFtVE1H5siTM/DK4sOrifDhNAg30Y+jnKw93Vxnozq6pfHN8xxH4JRLoIdYmwLVNltdRnItPGdOflHPcC8ckqTwdrGf6/Il1KwuJzBSvYJ6L7/tM8tszGlR17/uk0pd8Y4fW2yHMBUyiGodyfGM3YU00mMHNpf/SGe7IOou7cABK0MYtFJivS2mspCE8rbQGWPjQZFlw4y3o6al0siAcPpLTW6H1HSyDuEfpqSfTToqR0gr1R6JBLFnn3OMSdTG9STgq+Ily0PMEI7/nisVERF1M3Rs78mlMuFOO0bqdk9sDyax3xg2pCYVGD/S3Pgl49N0RWtw4EG7xS3IwArWzvGtMVl98x+nB7AEduoJ/91E9G50gacgFMjccIPN4vl58aexFRII7DJ7Aq6K96ivgmPHUE=

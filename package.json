@@ -13,7 +13,6 @@
     "pkg_path": "."
   },
   "scripts": {
-    "preinstall": "npm install node-pre-gyp@amilajack/node-pre-gyp#neon-compat",
     "install": "node-pre-gyp install --fallback-to-build=false || neon build --release",
     "build": "neon build --release && npm test",
     "rebuild": "neon build --release && npm test",
@@ -44,7 +43,7 @@
     "node-pre-gyp-github": "^1.4.3"
   },
   "dependencies": {
-    "@amilajack/node-pre-gyp": "github:amilajack/node-pre-gyp#neon-compat",
+    "@mapbox/node-pre-gyp": "^1.0.0",
     "neon-cli": "^0.3.3",
     "node-addon-api": "^2.0.0"
   },

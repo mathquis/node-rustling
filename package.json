@@ -6,26 +6,30 @@
   "gypfile": true,
   "binary": {
     "module_name": "index",
-    "module_path": "./native/",
+    "module_path": "./binding/",
     "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",
     "host": "https://github.com/mathquis/node-rustling/releases/download/",
-    "remote_path": "{version}",
-    "pkg_path": "."
+    "remote_path": "{version}"
   },
   "scripts": {
-    "preinstall": "npm install node-pre-gyp@amilajack/node-pre-gyp#neon-compat",
-    "install": "node-pre-gyp install --fallback-to-build=false || neon build --release",
-    "build": "neon build --release && npm test",
-    "rebuild": "neon build --release && npm test",
+    "preinstall": "npm install @mapbox/node-pre-gyp",
+    "install": "node-pre-gyp install --fallback-to-build=false || neon build --release && npm run move-binary",
+    "build": "neon build --release && npm run move-binary && npm test",
+    "rebuild": "neon rebuild --release && npm run move-binary && npm test",
+    "move-binary": "copyfiles -f ./native/*.node ./binding/",
     "test": "node test.js",
-    "publish": "neon build --release && node-pre-gyp package && node-pre-gyp-github publish --release"
+    "package": "node-pre-gyp package",
+    "upload": "node-pre-gyp-github publish --release",
+    "publish": "npm run build && npm run package && npm run upload"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mathquis/node-rustling.git"
   },
   "files": [
-    "native/index.node",
+    "native/src",
+    "native/build.rs",
+    "native/Cargo.*",
     "lib"
   ],
   "keywords": [
@@ -41,13 +45,13 @@
     "url": "https://github.com/mathquis/node-rustling/issues"
   },
   "devDependencies": {
-    "node-pre-gyp-github": "^1.4.3",
-    "node-pre-gyp": "github:amilajack/node-pre-gyp#neon-compat"
+    "@mapbox/node-pre-gyp": "^1.0.0",
+    "@mathquis/node-pre-gyp-github": "^1.0.0"
   },
   "dependencies": {
+    "copyfiles": "^2.4.1",
     "neon-cli": "^0.3.3",
-    "node-addon-api": "^2.0.0",
-    "node-pre-gyp": "github:amilajack/node-pre-gyp#neon-compat"
+    "node-addon-api": "^2.0.0"
   },
   "homepage": "https://github.com/mathquis/node-rustling#readme"
 }

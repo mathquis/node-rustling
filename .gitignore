@@ -1,4 +1,6 @@
+/build
 /native/target
 /node_modules
 /native/artifacts.json
 /native/*.node
+/binding/*.node

@@ -1,94 +1,81 @@
-extern crate neon;
-extern crate neon_serde;
-extern crate rustling_ontology;
 #[macro_use]
 extern crate serde;
-
-mod json;
 
 use neon::prelude::*;
 use rustling_ontology::*;
 use json::*;
-
 use std::str::FromStr;
+
+mod json;
 
 pub struct RustlingParser {
   parser: Parser
 }
 
-impl RustlingParser {
-  fn parse(&self, query: &str, kinds: &[OutputKind]) -> Vec<SlotValue> {
-    let context = ResolverContext::default();
-    let entities = {
-      if kinds.len() > 0 {
-          self.parser.parse_with_kind_order(&*query, &context, &kinds).unwrap()
-      } else {
-          self.parser.parse(&*query, &context).unwrap()
-      }
-    };
+impl Finalize for RustlingParser {}
 
-    entities
-      .iter()
-      .map(|entity| SlotValue::from(entity.value.clone()))
-      .collect::<Vec<_>>()
-  }
+fn create_parser(mut cx: FunctionContext) -> JsResult<JsBox<RustlingParser>> {
+  let parser_lang = cx.argument::<JsString>(0)?.value(&mut cx);
+  let language = Lang::from_str(&parser_lang).unwrap();
+  let _parser = match build_parser(language) {
+    Ok(_parser) => _parser,
+    Err(_e) => panic!("{}", _e),
+  };
+  Ok(cx.boxed(RustlingParser {
+    parser: _parser
+  }))
 }
 
-declare_types! {
-  pub class JsRustlingParser for RustlingParser {
-    init(mut cx) {
-      let parser_lang = cx.argument::<JsString>(0)?.value();
-      let language = Lang::from_str(&parser_lang).unwrap();
-      let _parser = match build_parser(language) {
-        Ok(_parser) => _parser,
-        Err(_e) => panic!(format!("{}", _e)),
-      };
-      Ok(RustlingParser {
-        parser: _parser
-      })
-    }
+fn parse(mut cx: FunctionContext) -> JsResult<JsValue> {
+  let rustling = cx.argument::<JsBox<RustlingParser>>(0)?;
+  let query = cx.argument::<JsString>(1)?.value(&mut cx);
 
-    method parse(mut cx) {
-      let query = cx.argument::<JsString>(0)?.value();
-
-      // Optional ordered list of `OutputKind` to parse in `query`
-      let kinds = match cx.argument_opt(1) {
-        Some(args) => args.downcast::<JsArray>()
-          .or_throw(&mut cx)?
-          .to_vec(&mut cx)
-          .map(|values| {
-             values
-                .iter()
-                .map(|s| {
-                  OutputKind::from_str(
-                    &s.downcast::<JsString>()
-                      .unwrap()
-                      .value()
-                  )
+  // Optional ordered list of `OutputKind` to parse in `query`
+  let kinds = match cx.argument_opt(2) {
+    Some(args) => args.downcast::<JsArray, _>(&mut cx)
+      .or_throw(&mut cx)?
+      .to_vec(&mut cx)
+      .map(|values| {
+         values
+            .iter()
+            .map(|s| {
+              OutputKind::from_str(
+                &s.downcast::<JsString, _>(&mut cx)
                   .unwrap()
-                })
-                .collect::<Vec<_>>()
-          })
-          .unwrap(),
-        None => vec![],
-      };
+                  .value(&mut cx)
+              )
+              .unwrap()
+            })
+            .collect::<Vec<_>>()
+      })
+      .unwrap(),
+    None => vec![],
+  };
 
-      let this = cx.this();
-      let entities_array = {
-        let guard = cx.lock();
-        let instance = this.borrow(&guard);
-        instance.parse(&*query, &kinds)
-      };
-
-      let result = neon_serde::to_value(&mut cx, &entities_array)?;
-
-      Ok(result)
+  let context = ResolverContext::default();
+  let entities = {
+    if kinds.len() > 0 {
+        rustling.parser.parse_with_kind_order(&*query, &context, &kinds).unwrap()
+    } else {
+        rustling.parser.parse(&*query, &context).unwrap()
     }
-  }
+  };
+
+  let entities_array = entities
+    .iter()
+    .map(|entity| SlotValue::from(entity.value.clone()))
+    .collect::<Vec<_>>();
+
+  let result = neon_serde::to_value(&mut cx, &entities_array)
+        .or_else(|e| cx.throw_error(e.to_string()))
+        .unwrap();
+
+  Ok(result)
 }
 
-
-register_module!(mut m, {
-  m.export_class::<JsRustlingParser>("Parser")?;
+#[neon::main]
+fn main(mut cx: ModuleContext) -> NeonResult<()> {
+  cx.export_function("createParser", create_parser)?;
+  cx.export_function("parse", parse)?;
   Ok(())
-});
+}

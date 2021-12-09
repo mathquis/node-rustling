@@ -1,23 +1,22 @@
 [package]
 name = "rustling-js"
-version = "0.0.1"
+version = "0.1.0"
 authors = ["Mathieu Quisefit"]
 license = "MIT"
-build = "build.rs"
-
-[profile.release]
-codegen-units = 1
+edition = "2018"
+exclude = ["index.node"]
 
 [lib]
 name = "rustling_js"
-crate-type = ["dylib"]
-
-[build-dependencies]
-neon-build = "0.3.3"
+crate-type = ["cdylib"]
 
 [dependencies]
-neon = "0.3.3"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0.45"
-neon-serde = "0.3.0"
+neon-serde = { git = "https://github.com/antonok-edm/neon-serde", branch = "refactor/update-neon-0.8" }
 rustling-ontology = { git = "https://github.com/snipsco/rustling-ontology", branch = "master" }
+
+[dependencies.neon]
+version = "0.8.3"
+default-features = false
+features = ["napi-6"]

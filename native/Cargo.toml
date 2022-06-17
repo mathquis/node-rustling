@@ -17,6 +17,6 @@ neon-serde = { git = "https://github.com/antonok-edm/neon-serde", branch = "refa
 rustling-ontology = { git = "https://github.com/snipsco/rustling-ontology", branch = "master" }
 
 [dependencies.neon]
-version = "0.8.3"
+version = "0.10.1"
 default-features = false
 features = ["napi-6"]
